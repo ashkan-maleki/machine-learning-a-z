@@ -6,12 +6,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-def read_csv(file_name):
-    dataset = pd.read_csv(file_name)
-    x = dataset.iloc[:, :-1].values
-    y = dataset.iloc[:, -1].values
-    return dataset, x, y
-
+from core.preprocessing.importing_dataset import read_csv
+from core.preprocessing.model_selection import train_test_split
 
 def impute(X):
     from sklearn.impute import SimpleImputer as Imputer
@@ -41,9 +37,7 @@ def encode(x, y):
     return x, y
 
 
-def train_test(x, y):
-    from sklearn.model_selection import train_test_split
-    return train_test_split(x, y, test_size=0.2, random_state=0)
+
 
 def scalar(x_train, x_test):
     from sklearn.preprocessing import StandardScaler
@@ -58,6 +52,6 @@ dataset, x, y = read_csv('Data.csv')
 x = impute(x)
 x, y = encode(x, y)
 
-x_train, x_test, y_train, y_test = train_test(x, y)
+x_train, x_test, y_train, y_test = train_test_split(x, y)
 x_train, x_test = scalar(x_train, x_test)
 
